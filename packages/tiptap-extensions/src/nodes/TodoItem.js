@@ -29,6 +29,32 @@ export default class TodoItem extends Node {
           <div class="todo-content" ref="content" :contenteditable="view.editable.toString()"></div>
         </li>
       `,
+      render(h) {
+        return h('li', {
+          attrs: {
+            'data-type': this.node.type.name,
+            'data-done': this.node.attrs.done.toString(),
+            'data-drag-handle': '',
+          },
+        }, [
+          h('span', {
+            class: 'todo-checkbox',
+            attrs: {
+              contenteditable: false,
+            },
+            on: {
+              click: this.onChange,
+            },
+          }),
+          h('div', {
+            class: 'todo-content',
+            attrs: {
+              contenteditable: this.view.editable.toString(),
+            },
+            ref: 'content',
+          }),
+        ])
+      },
     }
   }
 
